@@ -12,8 +12,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CallbackTest {
-    WebDriver driver;
+class CallbackTest {
+    private WebDriver driver;
 
     @BeforeAll
     static void setUpAll() {
@@ -30,7 +30,7 @@ public class CallbackTest {
     }
 
     @BeforeEach
-    void setupTest() {
+    public void beforeEach() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
