@@ -18,7 +18,7 @@ class CallbackTest {
     @BeforeAll
     static void setUpAll() {
 // убедитесь, что файл chromedriver.exe расположен именно в каталоге C:\tmp
-        WebDriverManager.chromedriver().driverVersion("113").setup();
+        WebDriverManager.chromedriver().setup();
 
     }
 
