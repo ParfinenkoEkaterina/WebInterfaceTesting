@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CallbackTest {
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
     @BeforeAll
     static void setUpAll() {
