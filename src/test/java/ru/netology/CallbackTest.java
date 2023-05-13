@@ -11,24 +11,25 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CallbackTest {
     WebDriver driver = new ChromeDriver();
 
-     @BeforeAll
+    @BeforeAll
     static void setUpAll() {
 // убедитесь, что файл chromedriver.exe расположен именно в каталоге C:\tmp
         WebDriverManager.chromedriver().setup();
 
     }
 
-        @AfterEach
-        void teardown() {
-            if (driver != null) {
-                driver.quit();
-            }
+    @AfterEach
+    void teardown() {
+        if (driver != null) {
+            driver.quit();
         }
+    }
 
     @BeforeEach
     void setupTest() {
@@ -44,11 +45,8 @@ public class CallbackTest {
         driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Антонов Антон");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79995555555");
-
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
-
         driver.findElement(By.className("button__text")).click();
-
 
         String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
@@ -56,14 +54,13 @@ public class CallbackTest {
         assertEquals(expected, actual);
 
     }
-   @Test
+
+    @Test
     void shouldTestInvalidName() throws InterruptedException {
         driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Antonov Anton");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+7999555555");
-
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
-
         driver.findElement(By.className("button__text")).click();
 
 
@@ -79,11 +76,8 @@ public class CallbackTest {
         driver.get("http://localhost:9999/");
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Антонов Антон");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+799955555");
-
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
-
         driver.findElement(By.className("button__text")).click();
-
 
         String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
@@ -109,11 +103,8 @@ public class CallbackTest {
     @Test
     void shouldTestInvalidNoName() throws InterruptedException {
         driver.get("http://localhost:9999/");
-      //  driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Антонов Антон");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79995555555");
-
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
-
         driver.findElement(By.className("button__text")).click();
 
 
