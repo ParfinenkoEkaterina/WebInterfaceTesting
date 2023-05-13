@@ -17,18 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class CallbackTest {
-    private WebDriver driver;
-@BeforeAll
+    WebDriver driver;
+     @BeforeAll
     static void setUpAll() {
 // убедитесь, что файл chromedriver.exe расположен именно в каталоге C:\tmp
         WebDriverManager.chromedriver().setup();
     }
 
-
         @AfterEach
         void teardown() {
-            driver.quit();
-            driver = null;
+            if (driver != null) {
+                driver.quit();
+            }
         }
 
     @BeforeEach
@@ -43,15 +43,16 @@ public class CallbackTest {
     @Test
     void shouldTestV1() throws InterruptedException {
         driver.get("http://localhost:9999/");
-        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Антонов Антон");
-        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+7999555555");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Антонов Антон");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+7999555555");
 
-        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
 
         driver.findElement(By.className("button__text")).click();
 
+
+        String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
 
         assertEquals(expected, actual);
 
